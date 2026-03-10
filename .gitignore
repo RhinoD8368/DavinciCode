@@ -1,0 +1,39 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+node_modules
+dist
+dist-ssr
+*.local
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# --- Frontend (fe 폴더 내 관련) ---
+FE/node_modules/
+FE/dist/
+FE/.env
+
+# --- Backend (be 폴더 생성 시 관련) ---
+BE/build/
+BE/.gradle/
+BE/bin/
+
+# --- 공통 (어느 폴더에 있든 제외) ---
+.DS_Store
+.idea/
+.vscode/
