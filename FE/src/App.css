@@ -1,0 +1,12 @@
+/* App에 필요한 공통 스타일시트 */
+@font-face {
+  font-family: 'patrickHand';  
+  src: url('./assets/fonts/PatrickHand-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;  
+}
+
+body {
+  font-family: 'patrickHand', sans-serif; 
+}
