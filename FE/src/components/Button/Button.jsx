@@ -11,9 +11,11 @@ import styles from './Button.module.css';
  */
 const Button = ({ isWeb = true, size = 'md', children, ...props }) => {
     
+    const btnClassName = `${styles.btn} ${styles[size]}`;
+
     return (
         <button 
-            className={styles.btn}
+            className={btnClassName}
             {...props}
         >
             {children}
