@@ -3,8 +3,10 @@
   /* =========================================================== */
   /* [ === Color === ] */
   /* =========================================================== */
-  --primary-color: #4b4b4b;
-  --primary-reverse-color: #1b1b1b;
+  --primary-color: #1b1b1b;
+  --primary-reverse-color: #ffe032;
+
+  --select-color: #fcdd2c;
 
   --secondary-color: #6c757d;
   --secondary-reverse-color: #ffffff;
@@ -12,12 +14,12 @@
   /* =========================================================== */
   /* [ === Button === ] */
   /* =========================================================== */
-  --btn-w-lg: 300px;
+  --btn-w-lg: 400px;
   --btn-w-md: 350px;
   --btn-w-sm: 100px;
 
-  --btn-h-lg: 50px;
-  --btn-h-md: 60px;
+  --btn-h-lg: 70px;
+  --btn-h-md: 55px;
   --btn-h-sm: 30px;
 }
 

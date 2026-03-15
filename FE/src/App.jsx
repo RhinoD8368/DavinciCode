@@ -1,19 +1,16 @@
 import './App.css'
-import Button from './components/Button/Button'
+
+import { Route, Routes } from 'react-router-dom';
+import Button from './components/button/Button';
 
 function App() {
 
   return (
-    <>
-      <div style={{ 
-        margin: '20px auto',
-        padding: '20px',
-        width: '500px',
-        height: '500px',
-       }}>
-        <Button >Login</Button>
-      </div>
-    </>
+    <Routes>
+      <Route path='/' element={<Button/>}>
+
+      </Route>
+    </Routes>
   )
 }
 
