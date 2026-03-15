@@ -1,4 +1,6 @@
 .btn {
+    width: var(--btn-w-md);
+    height: var(--btn-h-md);
     background-color: var(--primary-color);
     color: white;
     font-size: 1.2rem;
@@ -6,8 +8,6 @@
     border: none;
     border-radius: 10px;
     cursor: pointer;
-    width: var(--btn-w-md);
-    height: var(--btn-h-md);
 }
 
 .btn:hover {

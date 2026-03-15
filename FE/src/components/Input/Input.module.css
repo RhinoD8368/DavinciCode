@@ -1,0 +1,34 @@
+/* 1. 공통 인풋 스타일 (Base) */
+.inputContainer {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1rem;
+    transition: all 0.2s ease;
+}
+
+/* 2. label 영역 */
+.label {
+    font-size: 18px;
+    font-weight: bold;
+    color: #1a1a1a;
+    text-align: left;
+    margin-left: 10px;
+}
+
+/* 3. input 영역 */
+.inputField {
+    width: var(--btn-w-md);
+    height: var(--btn-h-md);
+    padding: 10px;
+    border: 2px solid #1a1a1a;
+    border-radius: 10px;
+    background-color: white;
+    color: black;
+    font-weight: bold;
+    box-sizing: border-box;
+
+}
+.inputField:focus {
+  border: 5px solid var(--select-color);
+  outline: none;
+}

@@ -1,0 +1,10 @@
+.header {
+    text-align: center;
+    font-size: 3.5rem; /* var */
+    font-weight: bold;
+}
+.header:hover {
+    color: black;
+    -webkit-text-stroke: 1px var(--select-color); /* 두께와 색상 */
+    cursor: pointer;
+}
