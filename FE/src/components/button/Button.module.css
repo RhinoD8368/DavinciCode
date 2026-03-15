@@ -1,0 +1,22 @@
+.btn {
+    background-color: var(--primary-color);
+    color: white;
+    font-size: 1.2rem;
+    font-weight: bold;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    width: var(--btn-w-md);
+    height: var(--btn-h-md);
+}
+
+.btn:hover {
+    background-color: var(--select-color);
+    color: var(--primary-color);
+    border: 3px solid var(--primary-color);
+}
+
+/* 사이즈별 스타일 */
+.sm { width: var(--btn-w-sm); height: var(--btn-h-sm); }
+.md { width: var(--btn-w-md); height: var(--btn-h-md); }
+.lg { width: var(--btn-w-lg); height: var(--btn-h-lg); }
