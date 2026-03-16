@@ -1,0 +1,23 @@
+.label {
+    display: block;
+    font-size: 1rem;
+    font-weight: bold;
+    color: var(--primary-color);
+}
+
+.inputField {
+    width: var(--w-md);
+    height: var(--h-md);
+    padding: 10px;
+    border: 2px solid var(--primary-color);
+    border-radius: 10px;
+    background-color: white;
+    color: black;
+    font-weight: bold;
+    box-sizing: border-box;
+}
+.inputField:focus {
+    border: 3px solid var(--primary-color);
+    background-color: var(--select-color);
+    outline: none;
+}

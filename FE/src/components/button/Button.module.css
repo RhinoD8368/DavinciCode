@@ -17,6 +17,6 @@
 }
 
 /* 사이즈별 스타일 */
-.sm { width: var(--btn-w-sm); height: var(--btn-h-sm); }
-.md { width: var(--btn-w-md); height: var(--btn-h-md); }
-.lg { width: var(--btn-w-lg); height: var(--btn-h-lg); }
+.sm { width: var(--w-sm); height: var(--h-sm); }
+.md { width: var(--w-md); height: var(--h-md); }
+.lg { width: var(--w-lg); height: var(--h-lg); }

@@ -1,14 +1,20 @@
 import styles from './Login.module.css';
 import Button from '../../components/button/Button';
-import Input from '../../components/Input/Input';
+import Input from '../../components/Input/Input2';
+import { VStack, HStack } from '../../components/layouts/stackLayout/Stack';
 
 const Login = () => {
     return (
         <div className={styles.loginContainer}>
-            <Input id="loginId" name="loginId" label="ID" type="text" placeholder="ID" />
-            <Input id="password" name="password" label="PW" type="password" placeholder="Password" />
-            <Button>Login</Button>
-            <Button>Join</Button>
+            <VStack gap="10px" style={{ marginTop: "150px" }}>
+                <Input label="ID" name="id" placeholder="아이디를 입력해주세요." />
+                <Input label="PW" name="pw" placeholder="비밀번호를 입력해주세요." />
+            </VStack>
+
+            <VStack gap="25px" style={{ marginTop: "50px" }}>
+                <Button>Login</Button>
+                <Button>Join</Button>
+            </VStack>
         </div>
     );
 }
