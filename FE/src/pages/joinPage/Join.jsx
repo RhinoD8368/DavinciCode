@@ -1,11 +1,21 @@
 import styles from './Join.module.css';
 import { VStack, HStack } from '../../components/layouts/stackLayout/Stack';
+import Input from '../../components/Input/Input';
+import Button from '../../components/button/Button';
 
 const Join = () => {
     return (
         <div>
-            <VStack>
-                Input
+            <VStack gap="20px" style={{ marginTop: "50px" }}>
+                <Input label="ID" name="id" placeholder="아이디를 입력해주세요." />
+                <Input label="Password" name="pw" placeholder="비밀번호를 입력해주세요." />
+                <Input label="Password Confirm" name="pwConfirm" placeholder="비밀번호를 다시 입력해주세요." />
+                <Input label="E-Mail" name="email" placeholder="이메일을 입력해주세요." />
+                <Input label="Nickname" name="nickname" placeholder="닉네임을 입력해주세요." />
+            </VStack>
+
+            <VStack style={{ marginTop: "50px" }}>
+                <Button>Sign Up</Button>
             </VStack>
         </div>
     );

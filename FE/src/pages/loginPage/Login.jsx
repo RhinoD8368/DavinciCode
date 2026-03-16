@@ -1,6 +1,6 @@
 import styles from './Login.module.css';
 import Button from '../../components/button/Button';
-import Input from '../../components/Input/Input2';
+import Input from '../../components/Input/Input';
 import { VStack, HStack } from '../../components/layouts/stackLayout/Stack';
 
 const Login = () => {

@@ -1,4 +1,4 @@
-import styles from './Input2.module.css';
+import styles from './Input.module.css';
 
 const Input2 = ({ label, children, ...props}) => {
     return (
