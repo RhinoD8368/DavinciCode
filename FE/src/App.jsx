@@ -10,7 +10,7 @@ function App() {
     <Routes> 
       <Route path='/' element={<AuthLayout />} >
         <Route index element={ <Login /> } />
-        <Route path="join" element={ <Join /> } />
+        <Route path="/join" element={ <Join /> } />
       </Route>
     </Routes>
   )
