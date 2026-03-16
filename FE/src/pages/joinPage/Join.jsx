@@ -4,6 +4,12 @@ import Input from '../../components/Input/Input';
 import Button from '../../components/button/Button';
 
 const Join = () => {
+
+    /** @description 회원가입 버튼 클릭 시 처리 */
+    const handleSignUpClick = () => {
+        alert("회원가입 버튼 클릭");
+    }
+
     return (
         <div>
             <VStack gap="20px" style={{ marginTop: "50px" }}>
@@ -15,7 +21,7 @@ const Join = () => {
             </VStack>
 
             <VStack style={{ marginTop: "50px" }}>
-                <Button>Sign Up</Button>
+                <Button onClick={handleSignUpClick}>Sign Up</Button>
             </VStack>
         </div>
     );
