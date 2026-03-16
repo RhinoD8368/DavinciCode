@@ -12,7 +12,7 @@ const Join = () => {
 
     return (
         <div>
-            <VStack gap="20px" style={{ marginTop: "50px" }}>
+            <VStack gap="20px" style={{ marginTop: "80px" }}>
                 <Input label="ID" name="id" placeholder="아이디를 입력해주세요." />
                 <Input label="Password" name="pw" placeholder="비밀번호를 입력해주세요." />
                 <Input label="Password Confirm" name="pwConfirm" placeholder="비밀번호를 다시 입력해주세요." />
