@@ -3,37 +3,54 @@ logs
 *.log
 npm-debug.log*
 yarn-debug.log*
-yarn-error.log*
-pnpm-debug.log*
-lerna-debug.log*
 
-node_modules
-dist
-dist-ssr
-*.local
-
-# Editor directories and files
-.vscode/*
-!.vscode/extensions.json
-.idea
-.DS_Store
-*.suo
-*.ntvs*
-*.njsproj
-*.sln
-*.sw?
-
-# --- Frontend (fe 폴더 내 관련) ---
-FE/node_modules/
-FE/dist/
-FE/.env
-
-# --- Backend (be 폴더 생성 시 관련) ---
-BE/build/
-BE/.gradle/
-BE/bin/
-
-# --- 공통 (어느 폴더에 있든 제외) ---
+# OS / IDE
 .DS_Store
 .idea/
 .vscode/
+.metadata/
+*.swp
+*.todo_cache
+
+# Eclipse / STS Specific
+.project
+.classpath
+.settings/
+.factorypath
+bin/
+
+# Frontend (React)
+FE/node_modules/
+FE/dist/
+FE/dist-ssr/
+FE/.env
+FE/.env.local
+
+# Backend (Spring Boot / Gradle)
+BE/.gradle/
+BE/build/
+BE/bin/
+BE/out/
+.gradle/
+build/
+
+# Etc
+node_modules/
+dist/
+ 
+
+# 1. 민감한 설정 파일 (DB 접속 정보 등)
+**/application.properties
+**/application.yml
+
+# 2. 로컬 개발용 설정 (빌드 시 제외)
+**/src/main/resources/application-local.properties
+**/src/main/resources/application-dev.properties
+
+# 3. 기타 백엔드 빌드 찌꺼기
+.apt_generated
+.springBeans
+.sts4-cache/
+
+# 4. 가끔 생기는 로그 디렉토리
+**/logs/

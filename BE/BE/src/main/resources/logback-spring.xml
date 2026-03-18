@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <include resource="org/springframework/boot/logging/logback/base.xml" />
+
+    <logger name="jdbc.sqlonly" level="OFF" additivity="false" />
+    
+    <logger name="jdbc.sqltiming" level="INFO">
+    </logger>
+
+    <logger name="jdbc.resultsettable" level="INFO">
+    </logger>
+
+    <logger name="jdbc.audit" level="OFF" />
+    <logger name="jdbc.resultset" level="OFF" />
+    <logger name="jdbc.connection" level="OFF" />
+</configuration>
