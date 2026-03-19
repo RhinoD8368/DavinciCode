@@ -3,13 +3,22 @@ import Button from '../../components/button/Button';
 import Input from '../../components/Input/Input';
 import { VStack, HStack } from '../../components/layouts/stackLayout/Stack';
 import { useNavigate } from 'react-router-dom';
+import api from '../../utils/axios';
 
 const Login = () => {
     const navigate = useNavigate();
 
     /** @description Login 버튼 클릭 시 로그인 처리 */
     const handleLoginClick = () => {     
-        alert("로그인 버튼 클릭");
+        api.get('/test')
+            .then(response => {
+                console.log('Login successful:', response.data);
+                // 로그인 성공 시 처리 (예: 토큰 저장, 사용자 정보 저장 등)
+            })
+            .catch(error => {
+                console.error('Login failed:', error);
+                // 로그인 실패 시 처리 (예: 에러 메시지 표시 등)
+            });
     }
     
     /** @description Join 버튼 클릭 시 회원가입 페이지로 이동 */
