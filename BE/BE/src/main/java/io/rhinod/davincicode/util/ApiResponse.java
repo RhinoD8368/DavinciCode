@@ -1,0 +1,28 @@
+package io.rhinod.davincicode.util;
+
+import org.springframework.http.ResponseEntity;
+
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+
+@Getter
+@NoArgsConstructor  
+@AllArgsConstructor
+public class ApiResponse<T> {
+	private boolean success;
+	private String message;
+	private T data;
+	
+	public static <T> ResponseEntity<ApiResponse<T>> success(T data) {
+		return ResponseEntity.ok(new ApiResponse<>(true, "Success", data));
+	}
+	
+	public static <T> ResponseEntity<ApiResponse<T>> success(String message, T data) {
+		return ResponseEntity.ok(new ApiResponse<>(true, message, data));
+	}
+	
+	public static ResponseEntity<ApiResponse<Object>> fail(String message) {
+        return ResponseEntity.badRequest().body(new ApiResponse<>(false, message, null));
+    }
+}
