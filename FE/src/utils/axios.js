@@ -10,4 +10,15 @@ const api = axios.create({
     },
 });
 
+api.interceptors.response.use(
+    (response) => {
+        console.log("### [axios - interceptors] request :: ", response);
+        return response.data;
+    },
+    async (error) => {
+        console.error("### [axios - interceptors] request error :: ", error);
+        return Promise.reject(error);
+    }
+);
+
 export default api;

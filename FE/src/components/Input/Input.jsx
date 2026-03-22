@@ -8,7 +8,7 @@ const Input2 = ({ label, children, ...props}) => {
                     {label}
                 </label>
             }
-            <input className={styles.inputField} type="text" placeholder={props.placeholder} />
+            <input className={styles.inputField} type="text" placeholder={props.placeholder} {...props}/>
         </div>
     );
 }
