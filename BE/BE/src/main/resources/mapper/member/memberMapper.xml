@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="io.rhinod.davincicode.member.mapper.MemberMapper"> 
+    
+    <select id="findByUserId" resultType="io.rhinod.davincicode.member.dto.UserDTO">
+        SELECT USER_NO
+             , USER_ID
+             , PASSWORD
+             , NICKNAME   
+			 , EMAIL      
+			 , USER_ROLE  
+			 , PROVIDER   
+			 , PROVIDER_ID
+			 , USE_YN     
+			 , CREATED_BY 
+			 , DATE_FORMAT(CREATED_AT, '%Y-%m-%d %H:%i:%s') AS CREATED_AT
+			 , UPDATED_BY 
+			 , DATE_FORMAT(UPDATED_AT, '%Y-%m-%d %H:%i:%s') AS UPDATED_AT  
+          FROM TB_USER_INFO 
+         WHERE USER_ID = #{userId}
+    </select>
+
+    <select id="findByEmail" parameterType="String" resultType="int">
+    	SELECT COUNT(*)
+    	  FROM TB_USER_INFO
+    	 WHERE EMAIL = #{email}
+    </select>
+    
+    <insert id="signUpUser" parameterType="io.rhinod.davincicode.member.dto.SignUpDTO">
+    	INSERT INTO TB_USER_INFO(
+		      USER_ID     
+		    , PASSWORD    
+		    , NICKNAME    
+		    , EMAIL 
+		    , USER_ROLE      
+		    , USE_YN      
+		    , CREATED_BY  
+		    , CREATED_AT   
+		    , UPDATED_BY   
+		    , UPDATED_AT   
+    	)
+    	VALUES (
+    		  #{userId}     
+			, #{password}    
+			, #{nickname}   
+			, #{email}  
+			, #{userRole}
+			, 'Y'      
+			, #{userId} 
+			, now()
+			, #{userId} 
+			, now()  
+    	)
+    </insert>
+    
+</mapper>
