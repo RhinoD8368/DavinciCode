@@ -1,5 +1,6 @@
 package io.rhinod.davincicode.util;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import lombok.AllArgsConstructor;
@@ -24,5 +25,9 @@ public class ApiResponse<T> {
 	
 	public static ResponseEntity<ApiResponse<Object>> fail(String message) {
         return ResponseEntity.badRequest().body(new ApiResponse<>(false, message, null));
+    }
+	
+	public static ResponseEntity<ApiResponse<Object>> fail(HttpStatus status, String message) {
+        return ResponseEntity.status(status).body(new ApiResponse<>(false, message, null));
     }
 }

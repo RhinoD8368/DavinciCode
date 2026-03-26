@@ -1,4 +1,4 @@
-package io.rhinod.davincicode.member.service;
+package io.rhinod.davincicode.security.service;
 
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -6,8 +6,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import io.rhinod.davincicode.member.dto.UserDTO;
 import io.rhinod.davincicode.member.mapper.MemberMapper;
+import io.rhinod.davincicode.security.dto.UserDTO;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -18,19 +18,25 @@ public class CustomUserDetailsService implements UserDetailsService{
 	
 	@Override
 	public UserDetails loadUserByUsername(String userId) throws UsernameNotFoundException {
-		// TODO Auto-generated method stub
 		
+		System.out.println("### [CustomUserDetailsService] - loadUserByUsername :: " + userId);
+
 		UserDTO user = memberMapper.findByUserId(userId);
+		System.out.println("### [CustomUserDetailsService] - UserDTO :: " + user);
 		
 		if( user == null ) {
-			throw new UsernameNotFoundException("아이디를 찾을 수 없습니다. :: " + userId);
+			throw new UsernameNotFoundException("### [CustomUserDetailsService] - UsernameNotFoundException :: " + userId);
 		}
 		
-		return User.builder()
-	            .username(user.getUserId()) // 여기서 이메일 대신 아이디를 넣어줌
+		// 꽉 채우자
+		UserDetails userDetails = User.builder()
+	            .username(user.getUserId())
 	            .password(user.getPassword())
 	            .roles(user.getUserRole().name())
 	            .build();
+		System.out.println("### [CustomUserDetailsService] - 리턴하는 UserDetails :: " + userDetails);
+		
+		return userDetails;
 	}
 
 }

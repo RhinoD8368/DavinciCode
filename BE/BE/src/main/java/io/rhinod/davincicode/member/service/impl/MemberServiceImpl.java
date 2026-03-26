@@ -4,9 +4,9 @@ import org.springframework.stereotype.Service;
 
 import io.rhinod.davincicode.apiTest.mapper.ApiTestMapper;
 import io.rhinod.davincicode.member.dto.SignUpDTO;
-import io.rhinod.davincicode.member.dto.UserDTO;
 import io.rhinod.davincicode.member.mapper.MemberMapper;
 import io.rhinod.davincicode.member.service.MemberService;
+import io.rhinod.davincicode.security.dto.UserDTO;
 import lombok.RequiredArgsConstructor;
 
 @Service

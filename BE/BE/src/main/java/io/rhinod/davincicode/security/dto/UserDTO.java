@@ -1,4 +1,4 @@
-package io.rhinod.davincicode.member.dto;
+package io.rhinod.davincicode.security.dto;
 
 import java.time.LocalDateTime;
 
