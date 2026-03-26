@@ -3,7 +3,7 @@
 
 <mapper namespace="io.rhinod.davincicode.member.mapper.MemberMapper"> 
     
-    <select id="findByUserId" resultType="io.rhinod.davincicode.member.dto.UserDTO">
+    <select id="findByUserId" resultType="io.rhinod.davincicode.security.dto.UserDTO">
         SELECT USER_NO
              , USER_ID
              , PASSWORD

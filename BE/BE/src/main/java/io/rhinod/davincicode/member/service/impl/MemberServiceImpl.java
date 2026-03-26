@@ -2,7 +2,6 @@ package io.rhinod.davincicode.member.service.impl;
 
 import org.springframework.stereotype.Service;
 
-import io.rhinod.davincicode.apiTest.mapper.ApiTestMapper;
 import io.rhinod.davincicode.member.dto.SignUpDTO;
 import io.rhinod.davincicode.member.mapper.MemberMapper;
 import io.rhinod.davincicode.member.service.MemberService;

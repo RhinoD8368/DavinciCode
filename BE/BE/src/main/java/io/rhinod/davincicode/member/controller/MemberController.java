@@ -1,9 +1,5 @@
 package io.rhinod.davincicode.member.controller;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -17,7 +13,6 @@ import org.springframework.web.bind.annotation.RestController;
 import io.rhinod.davincicode.member.dto.SignUpDTO;
 import io.rhinod.davincicode.member.service.MemberService;
 import io.rhinod.davincicode.member.vo.LoginRequestVO;
-import io.rhinod.davincicode.security.dto.UserDTO;
 import io.rhinod.davincicode.security.util.JwtTokenProvider;
 import io.rhinod.davincicode.util.ApiResponse;
 import io.rhinod.davincicode.util.Role;

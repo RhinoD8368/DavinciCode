@@ -2,8 +2,6 @@ package io.rhinod.davincicode.security.dto;
 
 import java.time.LocalDateTime;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-
 import io.rhinod.davincicode.util.Role;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
