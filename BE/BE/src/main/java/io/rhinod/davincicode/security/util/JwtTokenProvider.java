@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Component;
 
 import io.jsonwebtoken.Claims;
@@ -16,16 +15,13 @@ import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
-import io.rhinod.davincicode.security.service.CustomUserDetailsService;
-import io.rhinod.davincicode.util.Role;
+import io.rhinod.davincicode.security.dto.UserDTO;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 
 @Component
 @RequiredArgsConstructor
 public class JwtTokenProvider {
-	
-	private final CustomUserDetailsService customUserDetailsService;
 	
 	@Value("${jwt.secret}")
     private String secretKey;
@@ -42,12 +38,15 @@ public class JwtTokenProvider {
     }
 
     // AccessToken 생성 (로그인 성공 시 호출)
-    public String createAccessToken(String userId, Role role) {
-        Claims claims = Jwts.claims().setSubject(userId);
-        claims.put("role", role.name()); // Enum의 이름(USER, ADMIN 등) 저장
+    public String createAccessToken(UserDTO userDTO) {
+        Claims claims = Jwts.claims().setSubject(userDTO.getUserId());
+        claims.put("role", userDTO.getUserRole());
 
         Date now = new Date();
         Date validity = new Date(now.getTime() + expirationTime);
+        
+        
+        System.out.println("### [JwtTokenProvider] - createAccessToken - claims :: " + claims);
 
         return Jwts.builder()
                 .setClaims(claims)
@@ -58,22 +57,25 @@ public class JwtTokenProvider {
     }
     
     // RefreshToken 생성
-    public String createRefreshToken(String userId) {
+    public String createRefreshToken(UserDTO userDTO) {
         Date now = new Date();
         // AccessToken보다 훨씬 길게 설정 14일
         Date validity = new Date(now.getTime() + (expirationTime * 24 * 14)); 
 
         return Jwts.builder()
-                .setSubject(userId) // 리프레시 토큰은 권한 정보 없이 ID만 담아도 충분
+                .setSubject(userDTO.getUserId()) // 리프레시 토큰은 권한 정보 없이 ID만 담아도 충분
                 .setIssuedAt(now)
                 .setExpiration(validity)
                 .signWith(signKey, SignatureAlgorithm.HS256)
                 .compact();
     }
 
-    // 토큰에서 인증 정보 조회 (필터에서 사용)
-    public Authentication getAuthentication(String token) {
-        UserDetails userDetails = customUserDetailsService.loadUserByUsername(this.getUserId(token));
+    /** <pre>
+     * 토큰에서 인증 정보 조회 (필터에서 사용)
+     * customUserDetailsService.loadUserByUsername 에서 DB조회로 사용자 객체를 가져온다.
+     * </pre>
+     * */
+    public Authentication getAuthentication(String token, UserDetails userDetails) {
         return new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());
     }
 
@@ -83,16 +85,24 @@ public class JwtTokenProvider {
                 .parseClaimsJws(token).getBody().getSubject();
     }
 
-    // 토큰 유효성 검사 (만료 여부, 변조 여부 체크)
+    /** <pre>
+     * 토큰 유효성 검사
+     * 1. 서버의 secretKey로 서명된 진짜 토큰인지 검증
+     * 2. 토큰 만료기간 검증
+     * </pre>
+     */
     public boolean validateToken(String token) {
         try {
+        	// 1. 서버의 secretKey로 서명된 진짜 토큰인지 검증
             Jws<Claims> claims = Jwts.parserBuilder().setSigningKey(signKey).build().parseClaimsJws(token);
+            
+            // 2. 토큰 만료기간 검증
             return !claims.getBody().getExpiration().before(new Date());
-        } catch (Exception e) {
-            return false; // 만료되었거나 변조된 경우
+        } 
+        
+        // 만료되었거나 변조된 경우
+        catch (Exception e) {
+            return false; 
         }
     }
-
-	
-    
 }

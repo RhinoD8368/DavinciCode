@@ -1,5 +1,7 @@
 package io.rhinod.davincicode.util;
 
+
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
@@ -19,8 +21,14 @@ public class ApiResponse<T> {
 		return ResponseEntity.ok(new ApiResponse<>(true, "Success", data));
 	}
 	
-	public static <T> ResponseEntity<ApiResponse<T>> success(String message, T data) {
+	public static <T> ResponseEntity<ApiResponse<T>> success(T data, String message ) {
 		return ResponseEntity.ok(new ApiResponse<>(true, message, data));
+	}
+	
+	public static <T> ResponseEntity<ApiResponse<T>> success(HttpHeaders headers, T data, String message) {
+		return ResponseEntity.ok()
+	            .headers(headers)
+	            .body(new ApiResponse<>(true, message, data));
 	}
 	
 	public static ResponseEntity<ApiResponse<Object>> fail(String message) {

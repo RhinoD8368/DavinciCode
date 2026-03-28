@@ -18,6 +18,7 @@ import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import io.rhinod.davincicode.security.filter.JwtAuthenticationFilter;
+import io.rhinod.davincicode.security.service.CustomUserDetailsService;
 import io.rhinod.davincicode.security.util.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
 
@@ -28,6 +29,7 @@ public class SecurityConfig {
 
     private final CorsConfigurationSource corsConfigurationSource;
     private final JwtTokenProvider jwtTokenProvider;
+    private final CustomUserDetailsService customUserDetailsService;
 	
 	/** 비밀번호 암호화 객체 */
 	@Bean
@@ -97,7 +99,7 @@ public class SecurityConfig {
 		);
 		
 		// jwt stateless 방식으로 UsernamePasswordAuthenticationFilter 앞에 커스텀 인증필터를 둔다.
-		http.addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider), UsernamePasswordAuthenticationFilter.class);
+		http.addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider, customUserDetailsService), UsernamePasswordAuthenticationFilter.class);
 		
 		
 		return http.build();
