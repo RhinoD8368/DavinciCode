@@ -3,6 +3,8 @@ package io.rhinod.davincicode.security.util;
 import java.nio.charset.StandardCharsets;
 import java.security.Key;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -26,8 +28,11 @@ public class JwtTokenProvider {
 	@Value("${jwt.secret}")
     private String secretKey;
 
-    @Value("${jwt.expiration-time}")
-    private long expirationTime;
+    @Value("${jwt.token.access.expiration-time}")
+    private long accessTokenExpirationTime;
+    
+    @Value("${jwt.token.refresh.expiration-time}")
+    private long refreshTokenExpirationTime;
     
     private Key signKey;
     
@@ -37,37 +42,38 @@ public class JwtTokenProvider {
         this.signKey = Keys.hmacShaKeyFor(keyBytes);
     }
 
-    // AccessToken 생성 (로그인 성공 시 호출)
-    public String createAccessToken(UserDTO userDTO) {
-        Claims claims = Jwts.claims().setSubject(userDTO.getUserId());
-        claims.put("role", userDTO.getUserRole());
-
-        Date now = new Date();
-        Date validity = new Date(now.getTime() + expirationTime);
-        
-        
-        System.out.println("### [JwtTokenProvider] - createAccessToken - claims :: " + claims);
-
-        return Jwts.builder()
-                .setClaims(claims)
-                .setIssuedAt(now)
-                .setExpiration(validity)
-                .signWith(signKey, SignatureAlgorithm.HS256)
-                .compact();
+    /** AccessToken */
+    public Map<String, Object> createAccessToken(UserDTO userDTO) {
+        return buildJwtToken(userDTO, accessTokenExpirationTime);
     }
     
-    // RefreshToken 생성
-    public String createRefreshToken(UserDTO userDTO) {
-        Date now = new Date();
-        // AccessToken보다 훨씬 길게 설정 14일
-        Date validity = new Date(now.getTime() + (expirationTime * 24 * 14)); 
-
-        return Jwts.builder()
-                .setSubject(userDTO.getUserId()) // 리프레시 토큰은 권한 정보 없이 ID만 담아도 충분
-                .setIssuedAt(now)
-                .setExpiration(validity)
-                .signWith(signKey, SignatureAlgorithm.HS256)
-                .compact();
+    /** RefreshToken */
+    public Map<String, Object> createRefreshToken(UserDTO userDTO) {
+    	return buildJwtToken(userDTO, refreshTokenExpirationTime);
+    }
+    
+    /** Token 생성 */
+    private Map<String, Object> buildJwtToken(UserDTO userDTO, long expirationTime) {
+    	
+    	Date now = new Date();
+        Date validity = new Date(now.getTime() + expirationTime);
+        
+    	Map<String, Object> extraClaims = new HashMap<String, Object>();
+    	extraClaims.put("role", userDTO.getUserRole());
+    	
+    	String token = Jwts.builder()
+			.setSubject(userDTO.getUserId())
+	        .setClaims(extraClaims) 
+	        .setIssuedAt(now)
+	        .setExpiration(validity)
+	        .signWith(signKey, SignatureAlgorithm.HS256)
+	        .compact();
+    	
+    	Map<String, Object> resultMap = new HashMap<String, Object>();
+    	resultMap.put("token", token);
+    	resultMap.put("expirationTime", validity);
+    	
+    	return resultMap;
     }
 
     /** <pre>

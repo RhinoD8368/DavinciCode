@@ -1,5 +1,7 @@
 package io.rhinod.davincicode.member.mapper;
 
+import java.util.Map;
+
 import org.apache.ibatis.annotations.Mapper;
 
 import io.rhinod.davincicode.member.dto.SignUpDTO;
@@ -13,5 +15,7 @@ public interface MemberMapper {
 	int findByEmail(String email);
 
 	int signUpUser(SignUpDTO signUpDTO);
+
+	void saveRefreshToken(Map<String, Object> resultMap);
 
 }

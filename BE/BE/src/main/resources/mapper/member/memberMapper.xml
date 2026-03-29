@@ -6,7 +6,7 @@
     <select id="findByUserId" resultType="io.rhinod.davincicode.security.dto.UserDTO">
         SELECT USER_NO
              , USER_ID
-             , PASSWORD
+             , PASSWORD 
              , NICKNAME   
 			 , EMAIL      
 			 , USER_ROLE  
@@ -26,6 +26,21 @@
     	  FROM TB_USER_INFO
     	 WHERE EMAIL = #{email}
     </select>
+    
+    <insert id="saveRefreshToken" parameterType="map">
+    INSERT INTO TB_REFRESH_TOKEN
+    VALUES (
+    	  #{userDTO.userNo}
+    	, #{userDTO.userId}
+    	, #{refreshToken}
+    	, #{refreshExpirationTime}
+    	, 'Y'
+    )
+    ON DUPLICATE KEY UPDATE
+    	  TOKEN			= #{refreshToken}
+    	, EXPIRATION_TIME = #{refreshExpirationTime}
+    	, USE_YN			= 'Y'
+    </insert>
     
     <insert id="signUpUser" parameterType="io.rhinod.davincicode.member.dto.SignUpDTO">
     	INSERT INTO TB_USER_INFO(
