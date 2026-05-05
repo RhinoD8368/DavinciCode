@@ -5,6 +5,9 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -38,4 +41,9 @@ public class ApiResponse<T> {
 	public static ResponseEntity<ApiResponse<Object>> fail(HttpStatus status, String message) {
         return ResponseEntity.status(status).body(new ApiResponse<>(false, message, null));
     }
+	
+	public static String convertToJson(boolean success, String message) throws JsonProcessingException {
+	    ObjectMapper mapper = new ObjectMapper();
+	    return mapper.writeValueAsString(new ApiResponse<>(success, message, null));
+	}
 }

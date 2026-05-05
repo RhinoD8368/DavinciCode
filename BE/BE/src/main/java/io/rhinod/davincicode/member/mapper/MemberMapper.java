@@ -11,11 +11,18 @@ import io.rhinod.davincicode.security.dto.UserDTO;
 public interface MemberMapper {
 
 	UserDTO findByUserId(String userId);
+	
+	Map<String, Object> findRefreshTokenByUserId(String userId);
 
 	int findByEmail(String email);
 
 	int signUpUser(SignUpDTO signUpDTO);
 
 	void saveRefreshToken(Map<String, Object> resultMap);
+
+	void deleteRefreshToken(String refreshToken);
+
+	
+
 
 }

@@ -102,4 +102,9 @@ public class MemberServiceImpl implements MemberService{
         CustomUserDetails customUserDetails = (CustomUserDetails) authenticationManager.authenticate(token).getPrincipal();
 		return customUserDetails.getUserDTO();
 	}
+
+	@Override
+	public void deleteRefreshToken(String refreshToken) {
+		memberMapper.deleteRefreshToken(refreshToken);
+	}
 }

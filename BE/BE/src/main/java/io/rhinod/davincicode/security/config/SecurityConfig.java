@@ -18,7 +18,6 @@ import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import io.rhinod.davincicode.security.filter.JwtAuthenticationFilter;
-import io.rhinod.davincicode.security.service.CustomUserDetailsService;
 import io.rhinod.davincicode.security.util.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
 
@@ -29,7 +28,7 @@ public class SecurityConfig {
 
     private final CorsConfigurationSource corsConfigurationSource;
     private final JwtTokenProvider jwtTokenProvider;
-    private final CustomUserDetailsService customUserDetailsService;
+//    private final CustomUserDetailsService customUserDetailsService;
 	
 	/** 비밀번호 암호화 객체 */
 	@Bean
@@ -79,6 +78,7 @@ public class SecurityConfig {
 		// cors 설정
 		http.cors(cors -> cors.configurationSource(corsConfigurationSource));
 		
+		
 		// session 설정
 		// 스프링시큐리티의 동작방식을 무상태(STATELESS) 방식으로 변경한다.
 		// 만약 변경하지 않으면 스프링시큐리티 기본 동작방식인 세션-쿠키 방식으로 동작
@@ -86,7 +86,7 @@ public class SecurityConfig {
 		http.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 		
 		// formLogin 방식 설정
-		http.formLogin(form -> form.disable());
+		http.formLogin(form -> form.disable()); 
 		
 		// httpBasic 설정
 		http.httpBasic(basic -> basic.disable());
@@ -99,14 +99,14 @@ public class SecurityConfig {
 		);
 		
 		// jwt stateless 방식으로 UsernamePasswordAuthenticationFilter 앞에 커스텀 인증필터를 둔다.
-		http.addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider, customUserDetailsService), UsernamePasswordAuthenticationFilter.class);
+		http.addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider), UsernamePasswordAuthenticationFilter.class);
 		
 		
 		return http.build();
 	}
 	
 	@Bean
-	CorsConfigurationSource corsConfiSource() {
+	CorsConfigurationSource corsConfigSource() {
 		CorsConfiguration configuration = new CorsConfiguration();
 		configuration.setAllowedOrigins(Arrays.asList("http://localhost:5173")); // 리액트 주소
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));

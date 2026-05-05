@@ -20,6 +20,16 @@
           FROM TB_USER_INFO 
          WHERE USER_ID = #{userId}
     </select>
+    
+    <select id="findRefreshTokenByUserId" parameterType="string" resultType="map">
+    	SELECT USER_NO
+    		 , USER_ID
+    		 , TOKEN
+    		 , EXPIRATION_TIME
+    		 , USE_YN
+    	  FROM TB_REFRESH_TOKEN
+    	 WHERE USER_ID = #{userId}
+    </select>
 
     <select id="findByEmail" parameterType="String" resultType="int">
     	SELECT COUNT(*)
@@ -41,6 +51,12 @@
     	, EXPIRATION_TIME = #{refreshExpirationTime}
     	, USE_YN			= 'Y'
     </insert>
+    
+    <update id="deleteRefreshToken" parameterType="string">
+    UPDATE TB_REFRESH_TOKEN
+       SET USE_YN = 'N'
+     WHERE TOKEN = #{refreshToken}
+    </update>
     
     <insert id="signUpUser" parameterType="io.rhinod.davincicode.member.dto.SignUpDTO">
     	INSERT INTO TB_USER_INFO(

@@ -13,5 +13,7 @@ public interface MemberService {
 
 	int signUpUser(SignUpDTO signUpDTO);
 
-	Map<String, Object> processLogin(Map<String, Object> paramMap); 
+	Map<String, Object> processLogin(Map<String, Object> paramMap);
+
+	void deleteRefreshToken(String refreshToken); 
 }

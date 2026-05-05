@@ -18,6 +18,9 @@ import io.rhinod.davincicode.member.service.MemberService;
 import io.rhinod.davincicode.member.vo.LoginRequestVO;
 import io.rhinod.davincicode.util.ApiResponse;
 import io.rhinod.davincicode.util.Role;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 
 @RestController
@@ -74,6 +77,31 @@ public class MemberController {
         return ApiResponse.success(headers, dataMap, "로그인에 성공했습니다.");
 	}
 	
+	@PostMapping("/logout")
+	public ResponseEntity<?> logout(HttpServletRequest request, HttpServletResponse response) {
+		
+		System.out.println("### [logout] - request :: " + request);
+		
+		// 1. 쿠키에서 리프레시 토큰 추출
+		String refreshToken = getTokenFromRequest(request, "refreshToken");
+		
+		System.out.println("ref token :: " + refreshToken);
+		
+		if (refreshToken != null) {
+	        // 2. DB에서 토큰 무효화 (삭제 또는 USE_YN = 'N')
+			memberService.deleteRefreshToken(refreshToken);
+	    }
+
+	    // 3. 브라우저의 쿠키 강제 삭제 (만료 시간을 0으로 설정)
+	    Cookie cookie = new Cookie("refreshToken", null);
+	    cookie.setMaxAge(0);
+	    cookie.setPath("/");
+	    cookie.setHttpOnly(true);
+	    response.addCookie(cookie);
+		
+		return ApiResponse.success(null, "로그아웃이 완료되었습니다.");
+	}
+	
 	@PostMapping("/signUp")
 	public ResponseEntity<?> signUp( @RequestBody SignUpDTO signUpDTO ) {
 		
@@ -95,5 +123,19 @@ public class MemberController {
 		int insCnt = memberService.signUpUser(signUpDTO);
 		
 		return ApiResponse.success(insCnt, "회원가입이 완료되었습니다.");
+	}
+	
+	private String getTokenFromRequest(HttpServletRequest request, String tokenName) {
+		
+		Cookie[] cookies = request.getCookies();
+		
+		if (cookies != null) {
+	        for (Cookie cookie : cookies) {
+	            if (tokenName.equals(cookie.getName())) {
+	                return cookie.getValue();
+	            }
+	        }
+	    }
+	    return null;
 	}
 }
