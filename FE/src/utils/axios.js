@@ -5,7 +5,7 @@ import useAuthStore from '../store/authStore';
 // npm run build 실행 시: Vite가 자동으로 .env.production  읽어서 baseURL을 설정합니다.(운영환경)
 const api = axios.create({
     baseURL: import.meta.env.VITE_API_BASE_URL,  
-    withCredentials: true,
+    withCredentials: true, // 쿠키 전송 허용
     headers: {
         'Content-Type': 'application/json',
     },
@@ -15,8 +15,6 @@ api.interceptors.request.use(
     (config) => {
         // Zustand 스토어에서 메모리에 있는 토큰 꺼내기
         const token = useAuthStore.getState().accessToken; 
-        
-        console.log("### [Axios Request] 토큰 장착 완료:", token ? "Yes" : "No");
         
         if (token) {
             config.headers['Authorization'] = `Bearer ${token}`;
